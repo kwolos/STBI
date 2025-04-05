@@ -17,6 +17,3 @@ The presentend solver is written in C++. The wrapper is written in Python (3.13.
     ```
     You should receive message: `0.9.8`.
  8. Additionaly you can change number of threads in `omp_set_num_threads` in the file `PythonPWAExtension_library` &rarr; `SolverSpeed` &rarr; `C++ source code` &rarr; `PythonPWAspeed.cpp` (if needed).
-
- ## Sensitive data
- To get the data patients, please write an e-mail to the authors of the publication (Kamil Wolos or Jan Poleszczuk).
