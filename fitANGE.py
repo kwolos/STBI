@@ -34,18 +34,17 @@ for i in range(len(pathLeg)):
 # scaling to 175 cm
 L = 175
 
-Patients = np.load('./sensitive_data/dataANGE.npy', allow_pickle=True).item()
+Patients = np.load('./data/dataANGE.npy', allow_pickle=True).item()
 PatientsID = Patients.keys()
 
 method = "PSO"
 add_method = "LSQ"
 n = 6
 
-IfVasoData = pd.read_csv('./sensitive_data/DataPatients.csv', delimiter=';', on_bad_lines='skip')
-IDPATIENTS = ['CH_32_184']
+IfVasoData = pd.read_csv('./data/DataPatients.csv', delimiter=',', on_bad_lines='skip',)
 
 # %% loop with computing 
-for PatientID in IDPATIENTS: 
+for PatientID in PatientsID: 
     if not os.path.exists('./results'):
         os.makedirs('results')
 
@@ -73,13 +72,13 @@ for PatientID in IDPATIENTS:
         or (isinstance(CH['CUFF_WAVEFORMS'][3], int) and isinstance(CH['CUFF_WAVEFORMS'][4], int)): 
         mss = f"Patient {PatientID} has no measurements from the two arms or legs\n=====================================\n\n"
         logging.info(mss)
-        break 
+        continue
 
     # if we don't have two arms - stop
     if ch_[1]==0 & ch_[2]==0:
         mss1 = f"Patient {PatientID} has no measurements in two arms"
         logging.info(mss1)
-        break
+        continue
 
     # # II: if we have to arms, take only left
     # if ch_[1]==1 & ch_[2]==1:
@@ -88,8 +87,8 @@ for PatientID in IDPATIENTS:
     #     logging.info(mss1a)
     
     # if we have two legs, take only left
-    if ch_[3] & ch_[4]:
-        ch_[4] = 0 
+    # if ch_[3] & ch_[4]:
+    #     ch_[4] = 0 
     mss2 = f"Considered cuffs: {ch_}"
     logging.info(mss2)
     print(mss2)
